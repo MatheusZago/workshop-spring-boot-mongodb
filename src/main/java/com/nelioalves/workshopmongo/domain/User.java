@@ -3,9 +3,14 @@ package com.nelioalves.workshopmongo.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection="user") //Isso aqui é para mostrar que ela corresponde a uma coleção do MongoDb
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id //Para mostrar q é a PK da collection
 	private String id;
 	private String name;
 	private String email;
