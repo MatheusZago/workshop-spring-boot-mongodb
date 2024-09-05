@@ -37,6 +37,21 @@ public class UserService {
 		repo.deleteById(id);
 	}
 	
+	public User update(User obj) {
+		//Esse User obj é só o do App, nn tem reação com o BD
+		//Ao fzer isso ele vai instanciar o do BD para ser usado e atualizado.
+		User newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+		
+	//Transformando o newObj com os dados do obj
+	private void updateData(User newObj, User obj) {
+		newObj.setName(obj.getName());
+		newObj.setEmail(obj.getEmail());
+		
+	}
+
 	//Transformando DTO em user
 	public User fromDTO(UserDTO objDTO) {
 		return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
