@@ -1,5 +1,6 @@
 package com.nelioalves.workshopmongo.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -20,5 +21,12 @@ public interface PostRepository extends MongoRepository<Post, String>{
 	//E i no options quer dizer q ignora case
 	@Query("{ 'title' : { $regex: ?0, $options: 'i' } }")
 	List<Post> searchTitle(String text);
+	
+	//Está comparando se date é maior que o parametro ?1 (no caso minDate)
+	@Query("{ $and: [ { date: { $gte: ?1 } }, { date: { $lte: ?2 } } , " //Aqui é um E para garantir que estão entre as datas
+			+ "{ $or: [ 'title' : { $regex: ?0, $options: 'i' }, "//Se o texto estiver no titulo
+			+ "'body' : { $regex: ?0, $options: 'i' },  " // ou se estiver no corpo
+			+ "'comments.text' : { $regex: ?0, $options: 'i' } ] } ] }") //Ou se estiver nos comentários
+	List<Post> fullSearch(String text, Date minDate, Date maxDate);
 
 }
