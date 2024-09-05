@@ -31,6 +31,12 @@ public class UserService {
 		return repo.insert(obj);
 	}
 	
+	public void delete(String id) {
+		//Se ele nn achar nadajá joga exxceção lá atrás
+		findById(id);
+		repo.deleteById(id);
+	}
+	
 	//Transformando DTO em user
 	public User fromDTO(UserDTO objDTO) {
 		return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());

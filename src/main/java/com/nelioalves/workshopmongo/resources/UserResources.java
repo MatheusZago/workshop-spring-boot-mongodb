@@ -51,4 +51,12 @@ public class UserResources {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable String id){
+		service.delete(id);
+		//Ele retorna o código 204 se tudo deu certo mas não tiver nada pra retornar
+		return ResponseEntity.noContent().build();
+		
+	}
+	
 }
